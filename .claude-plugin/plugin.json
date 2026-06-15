@@ -1,6 +1,6 @@
 {
   "name": "projectura",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Skills para operar o Projectura (tarefas, releases, sprint, inbox, status report, time-tracking, docs) a partir de qualquer Claude, via o conector MCP. Requer o server MCP `projectura` conectado (PAT).",
   "author": { "name": "odevmaismais" },
   "homepage": "https://projectura-next.vercel.app",
