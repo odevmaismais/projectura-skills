@@ -1,0 +1,27 @@
+{
+  "manifest_version": "0.1",
+  "name": "projectura",
+  "display_name": "Projectura",
+  "version": "0.1.0",
+  "description": "Conector MCP do Projectura (tarefas, releases, equipes, docs) via ponte stdio→HTTP.",
+  "author": { "name": "odevmaismais" },
+  "homepage": "https://projectura-next.vercel.app/mcp",
+  "server": {
+    "type": "node",
+    "entry_point": "bin.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/bin.mjs"],
+      "env": { "PROJECTURA_TOKEN": "${user_config.token}" }
+    }
+  },
+  "user_config": {
+    "token": {
+      "type": "string",
+      "title": "PAT do Projectura",
+      "description": "Token pj_… gerado em https://projectura-next.vercel.app/mcp",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@projectura/skills",
+  "version": "0.1.0",
+  "description": "Projectura skills for Claude (tasks, releases, sprint, inbox, status, time, docs). Installs into ~/.claude/skills. Requires the `projectura` MCP server (PAT).",
+  "type": "module",
+  "bin": { "projectura-skills": "install.mjs" },
+  "files": [
+    "projectura-tasks/",
+    "projectura-releases/",
+    "projectura-sprint/",
+    "projectura-inbox/",
+    "projectura-status/",
+    "projectura-time/",
+    "projectura-docs/",
+    "install.mjs",
+    "README.md"
+  ],
+  "keywords": ["projectura", "claude", "skills", "mcp", "project-management"],
+  "license": "MIT",
+  "homepage": "https://projectura-next.vercel.app",
+  "repository": { "type": "git", "url": "git+https://github.com/odevmaismais/projectura-skills.git", "directory": "skills" }
+}
