@@ -1,8 +1,8 @@
 # Projectura — clientes & skills
 
 Distribuíveis públicos do **[Projectura](https://projectura-next.vercel.app)**: skills para Claude,
-o shim **MCP** (stdio) e o plugin git-installable. O app e o código-fonte são privados — aqui ficam
-só as peças que você instala para **usar** o Projectura por IA.
+o shim **MCP** (stdio) e o plugin git-installable. Aqui ficam
+as peças que você instala para **usar** o Projectura por IA.
 
 ## Conteúdo
 
