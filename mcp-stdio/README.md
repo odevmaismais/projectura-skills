@@ -1,8 +1,10 @@
 # @projectura/mcp — ponte stdio→HTTP
 
 Conecta o **conector MCP do Projectura** (HTTP hospedado) a clientes que só falam **stdio**.
-Encapsula [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) apontando para
-`https://projectura-next.vercel.app/api/mcp` com o seu PAT.
+Ponte **direta** — sem dependências, sem subprocesso: lê JSON-RPC do stdin, faz `POST` no endpoint
+`https://projectura-next.vercel.app/api/mcp` com o seu PAT e devolve a resposta no stdout. (Antes via
+`mcp-remote`; trocado por ponte própria porque o subprocesso não recebia o stdin sob o Node embutido
+do Claude Desktop.)
 
 > Se o seu cliente fala **streamable HTTP** (Claude Code, Cursor), prefira conectar direto ao
 > endpoint — ver [/mcp](https://projectura-next.vercel.app/mcp). Use este shim só para stdio.

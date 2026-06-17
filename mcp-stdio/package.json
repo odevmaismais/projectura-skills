@@ -1,7 +1,7 @@
 {
   "name": "@projectura/mcp",
-  "version": "0.1.3",
-  "description": "Shim stdio→HTTP do conector MCP do Projectura. Para clientes MCP que só falam stdio (ponte via mcp-remote para o endpoint HTTP hospedado).",
+  "version": "0.1.4",
+  "description": "Shim stdio→HTTP do conector MCP do Projectura. Ponte DIRETA (sem dependências, sem subprocesso) para clientes MCP que só falam stdio (ex.: Claude Desktop).",
   "type": "module",
   "bin": {
     "projectura-mcp": "bin.mjs"
@@ -26,8 +26,5 @@
     "type": "git",
     "url": "git+https://github.com/odevmaismais/projectura-skills.git",
     "directory": "mcp-stdio"
-  },
-  "dependencies": {
-    "mcp-remote": "^0.1.38"
   }
 }
