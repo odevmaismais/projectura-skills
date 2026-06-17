@@ -22,10 +22,15 @@ if (!token || !token.startsWith("pj_")) {
 }
 
 // Bridge oficial stdio↔streamable-HTTP. `-y` evita o prompt de instalação do npx.
+// Windows precisa de shell:true p/ resolver o `npx.cmd` (e o Node 22 exige shell p/ .cmd), MAS
+// com shell:true o Node NÃO quota argumentos com espaço → o valor `Authorization: Bearer pj_…`
+// chegava quebrado (header vazio → 401 → "disconnected"). Quotamos o header só no Windows.
+const win = process.platform === "win32";
+const headerVal = `Authorization: Bearer ${token}`;
 const child = spawn(
   "npx",
-  ["-y", "mcp-remote@latest", url, "--header", `Authorization: Bearer ${token}`],
-  { stdio: "inherit", shell: process.platform === "win32" },
+  ["-y", "mcp-remote@latest", url, "--header", win ? `"${headerVal}"` : headerVal],
+  { stdio: "inherit", shell: win },
 );
 child.on("error", (e) => { console.error("[@projectura/mcp] falha ao iniciar mcp-remote:", e.message); process.exit(1); });
 child.on("exit", (code) => process.exit(code ?? 0));

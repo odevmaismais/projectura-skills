@@ -30,6 +30,15 @@ npx @projectura/mcp --token pj_… --url https://projectura-next.vercel.app/api/
 }
 ```
 
+### Codex (stdio)
+```bash
+codex mcp add projectura --env PROJECTURA_TOKEN=pj_SEU_TOKEN -- npx -y @projectura/mcp
+```
+
+> **Demais clientes** — Claude Code, Antigravity (`serverUrl`+header) e Cursor falam **HTTP direto** no
+> endpoint, sem este shim. Lista completa por cliente (copy-paste) em
+> **[/mcp](https://projectura-next.vercel.app/mcp)**.
+
 ## Bundle `.mcpb` (Claude Desktop one-click)
 
 Já existe um bundle pronto: **[`projectura.mcpb`](./projectura.mcpb)** (formato MCPB/DXT,

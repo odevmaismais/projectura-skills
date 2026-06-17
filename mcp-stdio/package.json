@@ -1,6 +1,6 @@
 {
   "name": "@projectura/mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Shim stdio→HTTP do conector MCP do Projectura. Para clientes MCP que só falam stdio (ponte via mcp-remote para o endpoint HTTP hospedado).",
   "type": "module",
   "bin": { "projectura-mcp": "bin.mjs" },
