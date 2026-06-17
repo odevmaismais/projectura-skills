@@ -1,7 +1,12 @@
 #!/usr/bin/env node
-// Ponte stdio→HTTP do conector MCP do Projectura (para clientes que só falam stdio, ex.: algumas
-// configs do Claude Desktop). Encapsula `mcp-remote` apontando para o endpoint HTTP hospedado, com
-// o PAT no header Authorization.
+// Ponte stdio→HTTP do conector MCP do Projectura (para clientes que só falam stdio, ex.: Claude
+// Desktop). Encapsula `mcp-remote` apontando para o endpoint HTTP hospedado, com o PAT no header.
+//
+// Robustez (Claude Desktop usa um Node EMBUTIDO, sem npx no PATH): roda o `mcp-remote` VENDORADO
+// (dependência, empacotada no .mcpb) com o MESMO node que executa este arquivo (`process.execPath`),
+// SEM npx e SEM shell — elimina os 4 modos de falha no Windows/Desktop: npx fora do PATH, download
+// no boot estourando o timeout, quebra do pipe stdio pela camada do cmd.exe, e o header com espaço
+// chegando vazio por falta de aspas no shell.
 //
 // Uso (Claude Desktop / mcp.json):
 //   { "command": "npx", "args": ["-y", "@projectura/mcp"], "env": { "PROJECTURA_TOKEN": "pj_…" } }
@@ -9,7 +14,9 @@
 //   PROJECTURA_TOKEN=pj_… npx @projectura/mcp
 //   npx @projectura/mcp --token pj_… --url https://projectura-next.vercel.app/api/mcp
 import { spawn } from "node:child_process";
+import { createRequire } from "node:module";
 
+const require = createRequire(import.meta.url);
 const argv = process.argv.slice(2);
 const arg = (name) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? argv[i + 1] : undefined; };
 
@@ -21,16 +28,25 @@ if (!token || !token.startsWith("pj_")) {
   process.exit(1);
 }
 
-// Bridge oficial stdio↔streamable-HTTP. `-y` evita o prompt de instalação do npx.
-// Windows precisa de shell:true p/ resolver o `npx.cmd` (e o Node 22 exige shell p/ .cmd), MAS
-// com shell:true o Node NÃO quota argumentos com espaço → o valor `Authorization: Bearer pj_…`
-// chegava quebrado (header vazio → 401 → "disconnected"). Quotamos o header só no Windows.
-const win = process.platform === "win32";
-const headerVal = `Authorization: Bearer ${token}`;
-const child = spawn(
-  "npx",
-  ["-y", "mcp-remote@latest", url, "--header", win ? `"${headerVal}"` : headerVal],
-  { stdio: "inherit", shell: win },
-);
+const header = `Authorization: Bearer ${token}`;
+const remoteArgs = [url, "--header", header];
+
+let child;
+try {
+  // Preferido: mcp-remote vendorado, rodado pelo node atual — sem npx, sem shell.
+  // O header com espaço vira UM argv (não passa por shell), então chega íntegro.
+  const entry = require.resolve("mcp-remote/dist/proxy.js");
+  console.error(`[@projectura/mcp] mcp-remote vendorado via node embutido → ${url}`);
+  child = spawn(process.execPath, [entry, ...remoteArgs], { stdio: "inherit" });
+} catch {
+  // Fallback (dev sem node_modules instalado): npx. No Windows precisa de shell:true + header quotado.
+  const win = process.platform === "win32";
+  console.error(`[@projectura/mcp] mcp-remote não vendorado; via npx → ${url}`);
+  child = spawn(
+    "npx",
+    ["-y", "mcp-remote@latest", url, "--header", win ? `"${header}"` : header],
+    { stdio: "inherit", shell: win },
+  );
+}
 child.on("error", (e) => { console.error("[@projectura/mcp] falha ao iniciar mcp-remote:", e.message); process.exit(1); });
 child.on("exit", (code) => process.exit(code ?? 0));

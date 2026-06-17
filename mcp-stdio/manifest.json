@@ -2,7 +2,7 @@
   "manifest_version": "0.1",
   "name": "projectura",
   "display_name": "Projectura",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Conector MCP do Projectura (tarefas, releases, equipes, docs) via ponte stdio→HTTP.",
   "author": { "name": "odevmaismais" },
   "homepage": "https://projectura-next.vercel.app/mcp",

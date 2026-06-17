@@ -1,13 +1,33 @@
 {
   "name": "@projectura/mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Shim stdio→HTTP do conector MCP do Projectura. Para clientes MCP que só falam stdio (ponte via mcp-remote para o endpoint HTTP hospedado).",
   "type": "module",
-  "bin": { "projectura-mcp": "bin.mjs" },
-  "scripts": { "build:mcpb": "npx -y @anthropic-ai/mcpb@latest pack . projectura.mcpb" },
-  "files": ["bin.mjs", "manifest.json", "README.md"],
-  "keywords": ["projectura", "mcp", "stdio", "mcp-remote"],
+  "bin": {
+    "projectura-mcp": "bin.mjs"
+  },
+  "scripts": {
+    "build:mcpb": "npx -y @anthropic-ai/mcpb@latest pack . projectura.mcpb"
+  },
+  "files": [
+    "bin.mjs",
+    "manifest.json",
+    "README.md"
+  ],
+  "keywords": [
+    "projectura",
+    "mcp",
+    "stdio",
+    "mcp-remote"
+  ],
   "license": "MIT",
   "homepage": "https://projectura-next.vercel.app/mcp",
-  "repository": { "type": "git", "url": "git+https://github.com/odevmaismais/projectura-skills.git", "directory": "mcp-stdio" }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/odevmaismais/projectura-skills.git",
+    "directory": "mcp-stdio"
+  },
+  "dependencies": {
+    "mcp-remote": "^0.1.38"
+  }
 }
