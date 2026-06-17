@@ -33,9 +33,10 @@ npx @projectura/skills          # copia as skills para ~/.claude/skills/
 # ou global: npm i -g @projectura/skills && projectura-skills
 ```
 
-### Plugin Claude (git-installable)
+### Plugin Claude Code (marketplace — recomendado)
 ```
-/plugin install https://github.com/odevmaismais/projectura-skills
+/plugin marketplace add odevmaismais/projectura-skills
+/plugin install projectura@projectura
 ```
 
 ### Copiar manualmente

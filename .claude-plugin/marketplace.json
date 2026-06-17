@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "projectura",
+  "description": "Skills do Projectura para Claude Code — operar projetos, tarefas, releases, equipes e documentos via o conector MCP.",
+  "owner": {
+    "name": "odevmaismais",
+    "url": "https://github.com/odevmaismais"
+  },
+  "plugins": [
+    {
+      "name": "projectura",
+      "description": "7 skills (tarefas, releases, sprint, inbox, status report, time-tracking, docs) que operam o Projectura pelas tools projectura_* do conector MCP. Pré-requisito: o server MCP `projectura` conectado (PAT) — veja https://projectura-next.vercel.app/mcp.",
+      "version": "0.1.1",
+      "author": { "name": "odevmaismais" },
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://projectura-next.vercel.app/mcp",
+      "keywords": ["projectura", "mcp", "project-management", "tasks", "releases"]
+    }
+  ]
+}
